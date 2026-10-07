@@ -19,5 +19,7 @@ test('opens EPAM client work from Services', async ({ page }) => {
     .first()
     .click();
 
-  await expect(page.getByText('Client Work', { exact: true })).toBeVisible();
+  await expect(
+    page.getByRole('heading', { name: 'Client Work', exact: true }),
+  ).toBeVisible();
 });
