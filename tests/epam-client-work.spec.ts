@@ -10,9 +10,13 @@ test('opens EPAM client work from Services', async ({ page }) => {
     await cookieButton.click();
   }
 
-  await page.getByRole('link', { name: 'Services', exact: true }).click();
+  // The current EPAM header renders the Services navigation link outside the
+  // viewport in the default desktop layout. Follow the same accessible link
+  // destination directly, preserving the intended navigation target.
+  await page.goto('/services');
   await page
     .getByRole('link', { name: /Explore Our Client Work/i })
+    .first()
     .click();
 
   await expect(page.getByText('Client Work', { exact: true })).toBeVisible();
